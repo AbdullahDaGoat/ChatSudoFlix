@@ -75,21 +75,27 @@ io.on('connection', (socket) => {
         const { filename, buffer } = data;
         const filePath = path.join(__dirname, 'uploads', filename);
         
-        const base64Data = buffer.split(',')[1]; // Extract base64 data
-        const fileBuffer = Buffer.from(base64Data, 'base64'); // Convert to buffer
-
+        const base64Data = buffer.split(',')[1];
+        const fileBuffer = Buffer.from(base64Data, 'base64');
+    
         fs.writeFile(filePath, fileBuffer, (err) => {
             if (err) {
                 console.error('File upload error:', err);
                 socket.emit('uploadError', 'Error uploading file');
             } else {
+                const fileType = filename.split('.').pop().toLowerCase();
+                let messageType = 'file';
+                if (['jpg', 'jpeg', 'png', 'gif'].includes(fileType)) messageType = 'image';
+                else if (['mp3', 'wav', 'ogg'].includes(fileType)) messageType = 'audio';
+                else if (['mp4', 'webm', 'ogg'].includes(fileType)) messageType = 'video';
+    
                 const stmt = db.prepare('INSERT INTO messages (type, content, user_id) VALUES (?, ?, ?)');
                 try {
-                    stmt.run('image', filename, socket.id);
+                    stmt.run(messageType, filename, socket.id);
                 } catch (error) {
                     console.error('Database insert error:', error);
                 }
-                io.emit('message', { type: 'image', content: filename, user_id: socket.id });
+                io.emit('message', { type: messageType, content: filename, user_id: socket.id });
                 socket.emit('uploadSuccess', 'File uploaded successfully');
             }
         });
