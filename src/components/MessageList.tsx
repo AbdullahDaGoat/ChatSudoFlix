@@ -10,7 +10,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages, isDarkMode }) => {
         <div className={`flex-grow overflow-y-auto p-4 rounded-lg shadow-md mb-4 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
             {messages.map((message, index) => (
                 <div key={index} className={`mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-800'}`}>
-                    <span className={`font-bold ${isDarkMode ? 'text-peach-400' : 'text-peach-600'}`}>{message.user_id.slice(0, 6)}:</span>
+                    <span className={`font-bold ${isDarkMode ? 'text-peach-400' : 'text-peach-600'}`}>{message.user_id.slice(0, 6)}: </span>
                     {message.type === 'text' ? 
                         message.content : 
                         message.type === 'image' ? (

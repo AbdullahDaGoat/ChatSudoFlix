@@ -81,7 +81,7 @@ const Chat: React.FC<{ isDarkMode: boolean; toggleTheme: () => void; }> = ({ isD
                     <div ref={messagesEndRef} />
                 </div>
                 <div className={styles.imagePreviewContainer}>
-                    <ImagePreview uploadedImages={uploadedImages} cancelUpload={cancelUpload} />
+                    <ImagePreview uploadedFiles={uploadedImages} cancelUpload={cancelUpload} />
                 </div>
                 <MessageInput
                     inputMessage={inputMessage}
