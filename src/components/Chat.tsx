@@ -64,9 +64,9 @@ const Chat: React.FC<{ isDarkMode: boolean; toggleTheme: () => void; }> = ({ isD
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const filesArray = Array.from(e.target.files);
-            setUploadedImages(prev => [...prev, ...filesArray]);
+            setUploadedImages(filesArray); // Update state with selected files
         }
-    };
+    };    
 
     const cancelUpload = (index: number) => {
         setUploadedImages(prev => prev.filter((_, i) => i !== index));

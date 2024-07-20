@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import styles from './Chat.module.css';
@@ -9,6 +9,13 @@ interface ImagePreviewProps {
 }
 
 const ImagePreview: React.FC<ImagePreviewProps> = ({ uploadedFiles, cancelUpload }) => {
+    useEffect(() => {
+        // Clean up object URLs when component unmounts
+        return () => {
+            uploadedFiles.forEach(file => URL.revokeObjectURL(URL.createObjectURL(file)));
+        };
+    }, [uploadedFiles]);
+
     return (
         uploadedFiles.length > 0 && (
             <div className={styles.imagePreview}>

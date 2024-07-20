@@ -37,7 +37,14 @@ const MessageInput: React.FC<MessageInputProps> = ({
             />
             <label htmlFor="fileInput" className="p-2 rounded-md cursor-pointer transition-colors duration-200 bg-peach-500 hover:bg-peach-600 text-white">
                 <FontAwesomeIcon icon={faUpload} />
-                <input id="fileInput" type="file" accept="image/*" multiple className="hidden" onChange={handleFileSelect} />
+                <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/*,audio/*,video/*"
+                    multiple
+                    className="hidden"
+                    onChange={handleFileSelect}
+                />
             </label>
             <button onClick={sendMessage} className="p-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white">
                 <FontAwesomeIcon icon={faPaperPlane} />

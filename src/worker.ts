@@ -74,8 +74,9 @@ io.on('connection', (socket) => {
     socket.on('upload', (data) => {
         const { filename, buffer } = data;
         const filePath = path.join(__dirname, 'uploads', filename);
-        
-        const base64Data = buffer.split(',')[1];
+    
+        // Split buffer to remove any potential base64 header
+        const base64Data = buffer.split(',')[1] || buffer;
         const fileBuffer = Buffer.from(base64Data, 'base64');
     
         fs.writeFile(filePath, fileBuffer, (err) => {
@@ -100,6 +101,7 @@ io.on('connection', (socket) => {
             }
         });
     });
+    
 
     socket.on('disconnect', () => {
         console.log('A user disconnected');
