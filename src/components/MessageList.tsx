@@ -15,6 +15,16 @@ const MessageList: React.FC<MessageListProps> = ({ messages, isDarkMode }) => {
                         message.content : 
                         message.type === 'image' ? (
                             <img src={`http://localhost:3001/uploads/${message.content}`} alt="Uploaded" className="max-w-xs max-h-48 mt-1 cursor-pointer rounded-md" />
+                        ) : message.type === 'audio' ? (
+                            <audio controls className="mt-1">
+                                <source src={`http://localhost:3001/uploads/${message.content}`} type="audio/*"  />
+                                Your browser does not support the audio tag.
+                            </audio>
+                        ) : message.type === 'video' ? (
+                            <video controls className="mt-1 max-w-xs">
+                                <source src={`http://localhost:3001/uploads/${message.content}`} type="video/*" />
+                                Your browser does not support the video tag.
+                            </video>
                         ) : (
                             <span className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>{message.content}</span>
                         )

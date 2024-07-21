@@ -10,7 +10,6 @@ interface ImagePreviewProps {
 
 const ImagePreview: React.FC<ImagePreviewProps> = ({ uploadedFiles, cancelUpload }) => {
     useEffect(() => {
-        // Clean up object URLs when component unmounts
         return () => {
             uploadedFiles.forEach(file => URL.revokeObjectURL(URL.createObjectURL(file)));
         };
